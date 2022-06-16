@@ -20,7 +20,16 @@ class url_to_csv:
             3) date_to: date in DD/MM/YYYY format as the ending date
             4) export path: the path to which we want to export the data in csv
             5) asset: the name of the stock on investing.com
-            6) cur_id: ID as seen in the POST tab in Network settings (TESTING REQUIRED)'''
+            6) cur_id: ID of the asset. Internal form data used by Investing.com. Defaults to that of Bitcoin
+
+            Instructions:
+            1) Open the Investing.com page of the commodity and go to historical data
+            2) Right click and click on Insert Element
+            3) Go to the Network tab in the Inspect Element menu
+            4) On the main page, change the date range
+            5) Notice the Network tab in the Inspect Element menu. There should be a "HistoricalDataAjax" element. Double click on it.
+            6) Go to Payload tab in the opened menu.
+            7) Note curr_id. This is the value to be entered in cur_id of this class's constructor '''
 
         self.__url         = url
         if url == None:
