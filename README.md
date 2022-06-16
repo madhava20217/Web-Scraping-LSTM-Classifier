@@ -1,3 +1,7 @@
+# Important
+
+ Due to the maximum size of submission on Internshala, I had to remove the models for the binary classifier and the datasets for the time series. The former can be obtained after running the the script, but the <b>latter requires running all of the scripts in the 'web_scrape' subdirectory inside the 'Time Series' directory.</b>
+
 # Introduction
 
 Option 1 was chosen for task 1 and option 2 was chosen for task 2.
@@ -31,8 +35,6 @@ The directory structure is as follows:
 2. binary classifier: for the second task, creating a binary classifier for classifying a project to be 'closed' or 'cancelled/distressed'. The Python notebook is named 'classifier.ipynb'. First, logistic regression was tried, which gave an accuracy of 86% on the training set. Then, a convolutional neural network was tested, which resulted in an accuracy of ~91% on the training set and ~91% on the validation set. The training only occurred on the numerical portion of the data and the textual data was left untouched (could possibly use it after text processing and employing ensemble learning to increase the accuracy of the network). 
     
     Dropout was used to reduce overfitting and activation functions were chosen to yield maximum accuracy with minimum time taken for training.
-
-    The model yielding 92 percent accuracy on the test set has been saved in the saved_model_92pct directory.
 
 
 
