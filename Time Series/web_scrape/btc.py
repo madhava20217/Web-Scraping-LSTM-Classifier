@@ -7,7 +7,7 @@ path = join(path, 'datasets/btc.csv')
 
 
 run = url_to_csv(url = None,
-                date_from = '01/01/2022',
+                date_from = '01/01/2020',
                 date_to = None,
                 asset = 'BTC/USD Bitfinex Historical Data', 
                 export_path= path)

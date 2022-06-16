@@ -7,7 +7,7 @@ path = join(path, 'datasets/copper.csv')
 
 
 run = url_to_csv(url = None,
-                date_from = '01/01/2022',
+                date_from = '01/01/2020',
                 date_to = None,
                 asset = 'Copper Futures Historical Data', 
                 export_path= path, 
