@@ -1,47 +1,14 @@
-from bs4 import BeautifulSoup
-import requests
-import csv
+#Imports
+from url_to_csv.scraper import *
+from os.path import dirname, abspath, join
 
-url = "https://www.investing.com/crypto/bitcoin/historical-data"
+path = dirname(dirname(abspath(__file__)))
+path = join(path, 'datasets/btc.csv')
 
-r = requests.get(url, headers = {'User-Agent': 'Mozilla/5.0'})
 
-soup = BeautifulSoup(r.content, features = 'html.parser')
-
-table = soup.find(['table', {'class':'genTbl closedTbl historicalTbl'}])
-
-i = 0
-prices = []
-
-dict_list = []
-
-variables = []
-
-for row in table.find_all_next(['tr']):
-    dictionary = {}
-
-    j = 0
-
-    flag = False
-
-    for td in row:
-        if(i == 0):
-            variables.append(td.text)
-        else:
-            if("Highest:" in td.text): 
-                flag = True
-                break
-            dictionary[variables[j]] = td.text
-            j+=1
-    if(flag): break
-
-    if(len(dictionary.keys()) != 0):
-        dict_list.append(dictionary)
-
-    i+=1
-
-with open('../datasets/btc.csv', 'w') as f:
-    w = csv.DictWriter(f, variables)
-    w.writeheader()
-    for d in dict_list:
-        w.writerow(d)
+run = url_to_csv(url = None,
+                date_from = None,
+                date_to = None,
+                asset = 'BTC/USD Bitfinex Historical Data', 
+                export_path= path)
+run.save_data()

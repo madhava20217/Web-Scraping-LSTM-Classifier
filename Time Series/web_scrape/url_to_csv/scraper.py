@@ -3,7 +3,7 @@
 import csv
 import requests
 from bs4 import BeautifulSoup
-import datetime
+from datetime import datetime, timedelta
 
 
 #declaring class for getting csv file
@@ -12,14 +12,14 @@ class url_to_csv:
     '''The url_to_csv class is a class using BeautifulSoup for sending requests to Investing.com and gathering data from it about a particular asset'''
 
 
-    def __init__(self, url:str = None, asset:str = None, export_path:str = None, date_from:str= None, date_to:str = None, cur_id:str = '945629'):
+    def __init__(self, url, date_from, date_to, export_path, asset, cur_id= '945629'):
         '''Constructor for the url_to_csv class
         Takes 6 optional arguments:
             1) url: the url of the base site
-            2) asset: the name of the stock on investing.com
-            3) export_path: the path for the exported csv
-            4) date_from: date in DD/MM/YYYY format as the starting date
-            5) date_to: date in DD/MM/YYYY format as the ending date
+            2) date_from: date in DD/MM/YYYY format as the starting date
+            3) date_to: date in DD/MM/YYYY format as the ending date
+            4) export path: the path to which we want to export the data in csv
+            5) asset: the name of the stock on investing.com
             6) cur_id: ID as seen in the POST tab in Network settings (TESTING REQUIRED)'''
 
         self.__url         = url
@@ -28,14 +28,12 @@ class url_to_csv:
         self.asset       = asset
         self.export_path = export_path
         self.__date_from   = date_from
-        if(date_from == None):
-            self.__date_from = '01/01/2020'
         self.__date_to     = date_to
         if(date_to == None):
-            self.__date_to = datetime.datetime.today().strftime('%d/%m/%Y')
+            self.__date_to = (datetime.today()-timedelta(days = 7)).strftime('%d/%m/%Y')
         self.__payload = {'header': self.asset, 
-                        'st_date': self.date_from, 
-                        'end_date': self.date_to, 
+                        'st_date': self.__date_from, 
+                        'end_date': self.__date_to, 
                         'sort_col': 'date', 
                         'action': 'historical_data', 
                         'smlID': '145284', 
@@ -67,17 +65,17 @@ class url_to_csv:
     
 
     def save_data(self):
-        headers = {'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept': '*/*',
-                    'Accept-Encoding': 'gzip, deflate, br',
-                    'Connection': 'keep-alive',
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36 Edg/99.0.1150.46',
-                    'Origin': 'https://www.investing.com',
-                    'x-requested-with': 'XMLHttpRequest'}
+        head = {'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': '*/*',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36 Edg/99.0.1150.46',
+            'Origin': 'https://www.investing.com',
+            'x-requested-with': 'XMLHttpRequest'}
 
         r = requests.post(self.__url, 
                         data = self.__payload,
-                        headers = headers
+                        headers = head
                         )
         
         soup = BeautifulSoup(r.content, features = 'html.parser')
@@ -85,7 +83,6 @@ class url_to_csv:
         #have to find class genTbl closedTbl historicalTbl
 
         i = 0
-        prices = []
         dict_list = []
         variables = []
         for row in table.find_all_next(['tr']):
