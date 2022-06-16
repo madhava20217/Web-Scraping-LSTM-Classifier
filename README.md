@@ -38,7 +38,7 @@ The directory structure is as follows:
     
     Dropout was used to reduce overfitting and activation functions were chosen to yield maximum accuracy with minimum time taken for training.
 
-
+    Early stopping was also used.
 
 
 
