@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 
-url = "https://www.investing.com/commodities/gold-historical-data"
+url = "https://www.investing.com/commodities/natural-gas-historical-data"
 
 r = requests.get(url, headers = {'User-Agent': 'Mozilla/5.0'})
 
@@ -38,7 +38,7 @@ for row in table.find_all_next(['tr']):
 
     i+=1
 
-with open('../datasets/gold.csv', 'w') as f:
+with open('../datasets/natural_gas.csv', 'w') as f:
     w = csv.DictWriter(f, variables)
     w.writeheader()
     for d in dict_list:

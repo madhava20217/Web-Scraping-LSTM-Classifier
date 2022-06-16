@@ -38,7 +38,7 @@ for row in table.find_all_next(['tr']):
 
     i+=1
 
-with open('crude-oil.csv', 'w') as f:
+with open('../datasets/crude-oil.csv', 'w') as f:
     w = csv.DictWriter(f, variables)
     w.writeheader()
     for d in dict_list:

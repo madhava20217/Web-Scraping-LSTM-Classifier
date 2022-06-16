@@ -2,14 +2,13 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 
-url = "https://www.investing.com/commodities/gold-historical-data"
+url = "https://www.investing.com/crypto/bitcoin/historical-data"
 
 r = requests.get(url, headers = {'User-Agent': 'Mozilla/5.0'})
 
 soup = BeautifulSoup(r.content, 'html')
 
 table = soup.find(['table', {'class':'genTbl closedTbl historicalTbl'}])
-table = table.find_next('table')
 
 i = 0
 prices = []
@@ -38,7 +37,7 @@ for row in table.find_all_next(['tr']):
 
     i+=1
 
-with open('../datasets/gold.csv', 'w') as f:
+with open('../datasets/btc.csv', 'w') as f:
     w = csv.DictWriter(f, variables)
     w.writeheader()
     for d in dict_list:
