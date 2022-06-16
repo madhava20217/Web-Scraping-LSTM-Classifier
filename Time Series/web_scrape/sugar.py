@@ -19,20 +19,23 @@ dict_list = []
 variables = []
 
 for row in table.find_all_next(['tr']):
-    # if(i%6 == 0):
-    #     price.append
-
     dictionary = {}
 
     j = 0
+
+    flag = False
 
     for td in row:
         if(i == 0):
             variables.append(td.text)
         else:
-            print(td.text)
+            if("Highest:" in td.text): 
+                flag = True
+                break
             dictionary[variables[j]] = td.text
             j+=1
+    if(flag): break
+
     if(len(dictionary.keys()) != 0):
         dict_list.append(dictionary)
 
