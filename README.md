@@ -1,3 +1,5 @@
+By Madhava Krishna
+
 # Important
 
  Due to the maximum size of submission on Internshala, I had to remove the models for the binary classifier and the datasets for the time series. The former can be obtained after running the the script, but the <b>latter requires running all of the scripts in the 'web_scrape' subdirectory inside the 'Time Series' directory.</b>
