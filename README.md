@@ -6,9 +6,6 @@ By Madhava Krishna
 
 # Introduction
 
-Option 1 was chosen for task 1 and option 2 was chosen for task 2.
-
-
 The directory structure is as follows:
 
 1. Time Series: for task 1, wherein investing.com had to be scraped for data. This directory has 
